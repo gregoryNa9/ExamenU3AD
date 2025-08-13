@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Check-in Evento Virtual</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="stylesheet" href="style/form.css">
+</head>
+
+<body>
+    <div class="card">
+        <h1>Check-in a Evento Virtual</h1>
+
+        <p>1) Inicia sesión con GitHub (OAuth):</p>
+        <p><a href="/auth/github"><button>Ingresar con GitHub</button></a></p>
+
+        <hr />
+
+        <p>2) Acción única:</p>
+        <button id="btn-checkin">Registrar asistencia</button>
+
+        <h2>Asistentes: <span id="count">0</span></h2>
+
+        <hr />
+        <p>3) Ruta protegida (probar JWT):</p>
+        <button id="btn-profile">Ver mi perfil (JWT)</button>
+        <pre id="profile"></pre>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io({ withCredentials: true });
+
+        // Recibir contador actualizado
+        socket.on('checkin:count', (value) => {
+            document.getElementById('count').textContent = value;
+        });
+
+        // Emitir check-in
+        document.getElementById('btn-checkin').addEventListener('click', () => {
+            socket.emit('checkin:add');
+        });
+
+        // Llamar ruta protegida
+        document.getElementById('btn-profile').addEventListener('click', async () => {
+            const res = await fetch('/api/profile', { credentials: 'include' });
+            const data = await res.json();
+            document.getElementById('profile').textContent = JSON.stringify(data, null, 2);
+        });
+    </script>
+</body>
+
+</html>

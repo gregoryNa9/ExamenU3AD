@@ -1,0 +1,62 @@
+/* Tema oscuro general */
+body {
+    font-family: system-ui, sans-serif;
+    max-width: 680px;
+    margin: 40px auto;
+    background-color: #0d1117;
+    /* fondo oscuro */
+    color: #f0f6fc;
+    /* texto claro */
+}
+
+/* Tarjeta celeste */
+.card {
+    background-color: #0ea5e9;
+    /* celeste */
+    color: #0d1117;
+    /* texto oscuro para contraste */
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: none;
+}
+
+/* Botones */
+button {
+    padding: 12px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #0369a1;
+    /* azul profundo */
+    color: #f0f6fc;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #0284c7;
+    /* azul más claro al pasar mouse */
+}
+
+/* Títulos */
+h1,
+h2 {
+    margin-top: 0;
+    font-weight: 600;
+}
+
+/* Separadores */
+hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    margin: 20px 0;
+}
+
+/* Texto JSON del perfil */
+pre {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    overflow-x: auto;
+}
