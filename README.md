@@ -17,13 +17,13 @@ Aplicación web que permite a los usuarios registrarse en un evento virtual inic
 ## Capturas de Pantalla
 
 ### Pantalla principal (inicio de sesión y registro de asistencia)
-![Pantalla principal](imagenes/LogeoGit.png)
+![Pantalla principal](Imagenes/LogeoGit.png)
 
 ### Nuevo ingreso no tiene JWT
-![Nuevo Ingreso](imagenes/NuevoIngresoNogeneraJWT.png)
+![Nuevo Ingreso](Imagenes/NuevoIngresoNogeneraJWT.png)
 
 ### Ruta protegida con JWT
-![Verificacion de ingreso](imagenes/VerficacionIngreso.png)
+![Verificacion de ingreso](Imagenes/VerficacionIngreso.png)
 
 ---
 
