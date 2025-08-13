@@ -12,10 +12,11 @@ const io = new SocketIOServer(httpServer, {
     cors: { origin: process.env.CLIENT_URL, credentials: true }
 });
 
+// ===== Middleware =====
 app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static('public'));
+app.use(express.static('public')); 
 
 const {
     PORT = 3000,
@@ -80,7 +81,6 @@ app.get('/auth/github/callback', async (req, res) => {
     });
     const ghUser = await userRes.json();
 
-    // Armar objeto usuario mínimo
     const user = {
         id: ghUser.id,
         name: ghUser.name || ghUser.login,
@@ -88,16 +88,15 @@ app.get('/auth/github/callback', async (req, res) => {
         avatar_url: ghUser.avatar_url
     };
 
-    // Emitir JWT y mandarlo como cookie httpOnly
     const token = signToken(user);
+
     res.cookie('token', token, {
         httpOnly: true,
-        secure: true,
+        secure: false, 
         sameSite: 'lax',
-        maxAge: 1000 * 60 * 60 * 2 // 2h
+        maxAge: 1000 * 60 * 60 * 2
     });
 
-    // Redirigir al cliente (index) ya autenticado
     res.redirect('/');
 });
 
@@ -110,17 +109,13 @@ app.get('/api/profile', authRequired, (req, res) => {
 let checkinCount = 0;
 
 io.on('connection', (socket) => {
-    // enviar el valor actual al conectar
     socket.emit('checkin:count', checkinCount);
-
-    // escuchar intentos de check-in
     socket.on('checkin:add', () => {
         checkinCount += 1;
-        io.emit('checkin:count', checkinCount); // broadcast global
+        io.emit('checkin:count', checkinCount);
     });
 });
 
-// ====== Arranque ======
 httpServer.listen(PORT, () => {
     console.log(`Server on http://localhost:${PORT}`);
 });
